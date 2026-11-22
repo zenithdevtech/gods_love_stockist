@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight, BadgeCheck, Check } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import productDetails from "../lib/productDetails";
 import { formatPriceByCurrency } from "../utilities/formatterUtility";
 import type { HowItWorksCardProps } from "../lib/interfaces";
@@ -26,6 +26,7 @@ const Home: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<
     (typeof products)[0] | null
   >(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const handleOrder = (productId: string) => {
     sessionStorage.setItem("selectedProductId", productId);
@@ -56,9 +57,40 @@ const Home: React.FC = () => {
     },
   ];
 
+  const faqs = [
+    {
+      question: "Are all products original Mudet herbal extracts?",
+      answer:
+        "Yes, all extracts are 100% authentic, sealed Mudet herbal formulas supplied directly through certified channels.",
+    },
+    {
+      question: "How do I place an order for products?",
+      answer:
+        "Select your extract, click 'Order Now' to enter your delivery details, transfer to the stockist bank account, and confirm via WhatsApp for rapid verification.",
+    },
+    {
+      question: "How do I complete stockist or networker registration?",
+      answer: `Go to the Register page, choose from our 7 startup packages (Lunch to Legend), fill in your personal and commission bank information, and submit via WhatsApp under sponsor ${stockistConfig.sponsorUsername}.`,
+    },
+    {
+      question: "How fast is payment verification and delivery?",
+      answer:
+        "Orders and registrations are verified within minutes upon receipt submission on WhatsApp. Delivery is dispatched nationwide to your doorstep or pickup city.",
+    },
+    {
+      question: "What payment details should I use?",
+      answer: `Payments are made directly to our official stockist bank account: ${stockistConfig.bank.bankName}, Account: ${stockistConfig.bank.accountNumber} (${stockistConfig.bank.accountName}).`,
+    },
+    {
+      question: "Can I upgrade my registration package later?",
+      answer:
+        "Yes, you can begin with an entry package like Lunch or Ignite and upgrade to higher packages (Momentum, Power, Scale, Turbo, Legend) as your business grows.",
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-16 py-6">
-      {/* ── HERO SECTION: Centered layout title and subtext concept ── */}
+      {/* ── 1. HERO SECTION: Centered layout title and subtext concept ── */}
       <section className="pt-8 pb-4 text-center max-w-3xl mx-auto">
         <motion.div
           className="flex flex-col items-center gap-5"
@@ -66,12 +98,10 @@ const Home: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          {/* Centered Title */}
           <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-neutral-dark tracking-tight">
             Mudet Herbal Health Products &amp; Network
           </h1>
 
-          {/* Centered Subtext */}
           <p className="max-w-xl text-sm sm:text-base leading-relaxed text-neutral-soft">
             Get authentic Mudet herbal extracts from{" "}
             <strong className="text-neutral-dark font-bold">
@@ -81,7 +111,6 @@ const Home: React.FC = () => {
             stockist registration packages.
           </p>
 
-          {/* Centered Actions */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full sm:w-auto">
             <button
               type="button"
@@ -103,7 +132,32 @@ const Home: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* ── FEATURED PRODUCTS ── */}
+      {/* ── 2. HOW IT WORKS: Rearranged right after Hero for clear flow ── */}
+      <motion.section className="flex flex-col gap-6">
+        <div>
+          <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
+            How It Works
+          </h2>
+          <p className="mt-1 text-xs sm:text-sm text-neutral-soft">
+            Simple steps to order products and register with{" "}
+            {stockistConfig.name}.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {howItWorks.map((h) => (
+            <HowItWorksCard
+              key={h.id}
+              name={h.name}
+              id={h.id}
+              detail={h.detail}
+              icon={h.icon}
+            />
+          ))}
+        </div>
+      </motion.section>
+
+      {/* ── 3. FEATURED PRODUCTS: Direct catalog access ── */}
       <motion.section {...fadeUp} className="flex flex-col gap-6">
         <div>
           <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
@@ -168,31 +222,7 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* ── HOW IT WORKS ── */}
-      <motion.section {...fadeUp} className="flex flex-col gap-6">
-        <div>
-          <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
-            How It Works
-          </h2>
-          <p className="mt-1 text-xs sm:text-sm text-neutral-soft">
-            Simple steps to order products and register with {stockistConfig.name}.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {howItWorks.map((h) => (
-            <HowItWorksCard
-              key={h.id}
-              name={h.name}
-              id={h.id}
-              detail={h.detail}
-              icon={h.icon}
-            />
-          ))}
-        </div>
-      </motion.section>
-
-      {/* ── COMPENSATION PLAN / WEALTH BANNER ── */}
+      {/* ── 4. COMPENSATION PLAN / OPPORTUNITIES ── */}
       <motion.section {...fadeUp}>
         <div className="rounded-md bg-neutral-dark p-6 sm:p-8 text-white shadow-sm">
           <h2 className="font-display text-xl sm:text-2xl font-bold">
@@ -244,57 +274,61 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* ── FAQ SECTION ── */}
+      {/* ── 5. FAQ SECTION: Accordion Component ── */}
       <motion.section {...fadeUp} className="flex flex-col gap-6">
         <div>
           <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
             Frequently Asked Questions
           </h2>
           <p className="mt-1 text-xs sm:text-sm text-neutral-soft">
-            Quick answers regarding product orders and stockist registration.
+            Click on any question below to view answers regarding products and
+            registration.
           </p>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
-          {[
-            [
-              "Are all products genuine?",
-              "Yes, all extracts are 100% authentic Mudet herbal solutions supplied directly through certified channels.",
-            ],
-            [
-              "How do I complete registration?",
-              "Select your package on the Register page, transfer payment to the stockist bank account, and complete via WhatsApp for verification.",
-            ],
-            [
-              "What products are available?",
-              "We stock Cinnamon Herbal Extract and ARMOR Herbal Extract with nationwide delivery.",
-            ],
-            [
-              "How is delivery handled?",
-              "Orders are processed immediately after WhatsApp verification and dispatched to your city or address.",
-            ],
-          ].map(([question, answer]) => (
-            <div
-              key={question}
-              className="rounded-md border border-secondary-dark/80 bg-white p-4 sm:p-5 shadow-xs"
-            >
-              <div className="flex items-start gap-2.5">
-                <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <div>
-                  <h3 className="font-bold text-neutral-dark text-sm">
-                    {question}
-                  </h3>
-                  <p className="mt-1 text-xs sm:text-sm leading-relaxed text-neutral-soft">
-                    {answer}
-                  </p>
-                </div>
+        <div className="rounded-md border border-secondary-dark/80 bg-white divide-y divide-secondary-dark/70 shadow-xs overflow-hidden">
+          {faqs.map((faq, index) => {
+            const isOpen = openFaqIndex === index;
+            return (
+              <div key={faq.question} className="transition-colors">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                  className="w-full flex items-center justify-between gap-4 p-4 text-left transition hover:bg-secondary/40 focus:outline-none"
+                  aria-expanded={isOpen}
+                >
+                  <span className="font-bold text-neutral-dark text-sm">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 text-neutral-soft transition-transform duration-200 ${
+                      isOpen ? "rotate-180 text-primary" : ""
+                    }`}
+                  />
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                      className="overflow-hidden bg-[#fafcfa]"
+                    >
+                      <p className="px-4 pb-4 pt-1 text-xs sm:text-sm leading-relaxed text-neutral-soft border-t border-secondary-dark/40">
+                        {faq.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </motion.section>
 
-      {/* ── BOTTOM CTA BANNER ── */}
+      {/* ── 6. BOTTOM CTA BANNER ── */}
       <motion.section
         {...fadeUp}
         className="rounded-md border border-secondary-dark/80 bg-secondary/50 p-6 sm:p-8"
@@ -305,8 +339,8 @@ const Home: React.FC = () => {
               Ready to Order or Have Questions?
             </h2>
             <p className="mt-1 max-w-xl text-xs sm:text-sm leading-relaxed text-neutral-soft">
-              Start your order online or contact {stockistConfig.name} on WhatsApp
-              for direct guidance and support.
+              Start your order online or contact {stockistConfig.name} on
+              WhatsApp for direct guidance and support.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2.5 shrink-0">
