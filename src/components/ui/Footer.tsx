@@ -11,8 +11,8 @@ const Footer = () => {
       <section className="app-container py-10 lg:py-12">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-white">
+            <div className="flex items-center">
+              <div className="flex h-8 w-8 items-center justify-center">
                 <img
                   src={assets.logo2}
                   alt="Mudet"
@@ -20,7 +20,9 @@ const Footer = () => {
                 />
               </div>
               <div>
-                <p className="font-display text-lg font-bold">{stockistConfig.name}</p>
+                <p className="font-display text-lg font-bold">
+                  {stockistConfig.name}
+                </p>
                 <p className="text-[10px] text-white/60">
                   {stockistConfig.tagline}
                 </p>
@@ -28,8 +30,8 @@ const Footer = () => {
             </div>
 
             <p className="mt-4 max-w-md text-xs sm:text-sm leading-relaxed text-white/70">
-              Authentic Mudet herbal extracts and distributor registration support
-              through {stockistConfig.name}.
+              Authentic Mudet herbal extracts and distributor registration
+              support through {stockistConfig.name}.
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2.5">
@@ -99,7 +101,9 @@ const Footer = () => {
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-5 text-[11px] text-white/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} {stockistConfig.name}. All rights reserved.</p>
+          <p>
+            © {year} {stockistConfig.name}. All rights reserved.
+          </p>
           <a
             href="https://zenithdevtech.name.ng"
             target="_blank"

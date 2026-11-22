@@ -19,7 +19,7 @@ const Header = () => {
   }, [open]);
 
   useEffect(() => {
-    setOpen(false);
+    queueMicrotask(() => setOpen(false));
   }, [location.pathname]);
 
   return (
@@ -31,8 +31,8 @@ const Header = () => {
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
         <nav className="app-container flex h-16 sm:h-20 items-center gap-4">
-          <a href="/" className="flex min-w-0 items-center gap-2.5">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-white border border-secondary-dark/70 shadow-xs">
+          <a href="/" className="flex min-w-0 items-center">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center">
               <img
                 src={assets.logo2}
                 alt="Mudet"
@@ -43,9 +43,13 @@ const Header = () => {
               <span className="truncate font-display text-base sm:text-lg font-bold text-neutral-dark">
                 {stockistConfig.name}
               </span>
-              <span className="truncate text-[10px] font-semibold text-neutral-soft">
+              <a
+                href="https://www.mudetrealsolution.com"
+                target="_blank"
+                className="truncate text-[10px] font-semibold text-neutral-soft hover:underline!"
+              >
                 {stockistConfig.tagline}
-              </span>
+              </a>
             </span>
           </a>
 
@@ -171,7 +175,7 @@ const Header = () => {
                 </Link>
                 <a
                   href={`https://wa.me/${stockistConfig.phone.whatsapp}?text=${encodeURIComponent(
-                    `Hi, I want to ask about Mudet products from ${stockistConfig.name}.`
+                    `Hi, I want to ask about Mudet products from ${stockistConfig.name}.`,
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
