@@ -45,7 +45,7 @@ const Footer = () => {
                 to="/register"
                 className="btn-secondary border-white/20 bg-white/10 text-white hover:bg-white/15 text-xs min-h-9 px-3.5 py-1.5"
               >
-                Register as Stockist
+                Register as Member
               </Link>
             </div>
           </div>

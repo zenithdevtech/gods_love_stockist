@@ -69,7 +69,7 @@ const Affiliate: React.FC = () => {
     },
     validationSchema: affiliateFormSchema,
     onSubmit: (values) => {
-      const message = `*📌 MUDET STOCKIST REGISTRATION 📌*
+      const message = `*📌 MUDET MEMBER REGISTRATION 📌*
 
 *═══════════════════════════════*
 *SPONSOR & PACKAGE INFORMATION*
@@ -163,7 +163,7 @@ Bank Name: ${values.bankName}
           <div className="flex flex-col gap-6">
             <div className="border-b border-secondary-dark/70 pb-4">
               <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
-                Stockist Registration
+                Member Registration
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-neutral-soft">
                 Select your startup package and complete your details under

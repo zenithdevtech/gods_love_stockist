@@ -44,9 +44,9 @@ export const stockistConfig: StockistConfig = {
   seo: {
     title: "God's Love | Mudet Real Solution Stockist",
     description:
-      "Order genuine Mudet herbal extracts and register as a Mudet stockist with God's Love. Direct stockist support, fast order processing, and WhatsApp verification.",
+      "Order genuine Mudet herbal extracts and register as a Mudet member with God's Love. Direct stockist support, fast order processing, and WhatsApp verification.",
     keywords:
-      "Mudet stockist, Mudet products, Mudet Herbal Extract, God's Love, Mudet registration, Mudet distributor packages, Cinnamon extract, Armor extract",
+      "Mudet stockist, Mudet member registration, Mudet products, Mudet Herbal Extract, God's Love, Mudet registration, Mudet packages, Cinnamon extract, Armor extract",
   },
 };
 

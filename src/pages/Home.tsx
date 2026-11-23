@@ -76,7 +76,7 @@ const Home: React.FC = () => {
         "Select your extract, click 'Order Now' to enter your delivery details, transfer to the stockist bank account, and confirm via WhatsApp for rapid verification.",
     },
     {
-      question: "How do I complete stockist or networker registration?",
+      question: "How do I complete member or networker registration?",
       answer: `Go to the Register page, choose from our 7 startup packages (Lunch to Legend), fill in your personal and commission bank information, and submit via WhatsApp under sponsor ${stockistConfig.sponsorUsername}.`,
     },
     {
@@ -115,7 +115,7 @@ const Home: React.FC = () => {
               {stockistConfig.name}
             </strong>
             . Enjoy direct WhatsApp ordering, fast delivery, and straightforward
-            stockist registration packages.
+            member registration packages.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full sm:w-auto">
@@ -133,7 +133,7 @@ const Home: React.FC = () => {
               className="btn-secondary w-full sm:w-auto gap-2"
             >
               <TiUserAdd className="h-4 w-4 text-primary" />
-              Register as Stockist
+              Register as Member
             </button>
           </div>
         </motion.div>
@@ -337,7 +337,7 @@ const Home: React.FC = () => {
               className="btn-primary text-xs min-h-9 px-4 py-2"
             >
               <TiUserAdd className="h-3.5 w-3.5" />
-              Register as Stockist
+              Register as Member
             </button>
             <a
               download={true}
