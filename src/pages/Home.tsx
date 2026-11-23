@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import {
+  ArrowRight,
+  Award,
+  ChevronDown,
+  Percent,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import productDetails from "../lib/productDetails";
 import { formatPriceByCurrency } from "../utilities/formatterUtility";
 import type { HowItWorksCardProps } from "../lib/interfaces";
@@ -90,7 +97,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-16 py-6">
-      {/* ── 1. HERO SECTION: Centered layout title and subtext concept ── */}
+      {/* ── 1. HERO SECTION ── */}
       <section className="pt-8 pb-4 text-center max-w-3xl mx-auto">
         <motion.div
           className="flex flex-col items-center gap-5"
@@ -132,8 +139,8 @@ const Home: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* ── 2. HOW IT WORKS: Rearranged right after Hero for clear flow ── */}
-      <motion.section className="flex flex-col gap-6">
+      {/* ── 2. HOW IT WORKS ── */}
+      <motion.section {...fadeUp} className="flex flex-col gap-6">
         <div>
           <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
             How It Works
@@ -157,7 +164,7 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* ── 3. FEATURED PRODUCTS: Direct catalog access ── */}
+      {/* ── 3. FEATURED PRODUCTS ── */}
       <motion.section {...fadeUp} className="flex flex-col gap-6">
         <div>
           <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
@@ -222,60 +229,134 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* ── 4. COMPENSATION PLAN / OPPORTUNITIES ── */}
-      <motion.section {...fadeUp}>
-        <div className="rounded-md bg-neutral-dark p-6 sm:p-8 text-white shadow-sm">
-          <h2 className="font-display text-xl sm:text-2xl font-bold">
-            Mudet Business &amp; Stockist Opportunities
-          </h2>
+      {/* ── 4. COMPENSATION & EARNING MODEL (Twisted Fresh Design) ── */}
+      <motion.section {...fadeUp} className="flex flex-col gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
+              Mudet Compensation &amp; Earning Model
+            </h2>
+            <p className="mt-1 text-xs sm:text-sm text-neutral-soft max-w-xl">
+              A transparent, high-yield structure designed for personal sales
+              margins, direct sponsor rewards, and long-term residual growth.
+            </p>
+          </div>
+        </div>
 
-          <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-white/75">
-            Join as a stockist or network marketer to access retail margins,
-            direct referral bonuses, and store sponsor rewards.
-          </p>
+        {/* 4 Earning Pillars Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div className="rounded-md border border-secondary-dark/80 bg-white p-4 sm:p-5 shadow-xs flex flex-col justify-between">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-soft text-primary mb-3">
+                <Percent className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-sm font-bold text-neutral-dark">
+                25% Retail Margin
+              </h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-neutral-soft">
+                Keep upfront profit on every single bottle of Cinnamon &amp;
+                ARMOR herbal extract retailed directly.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-secondary-dark/50 text-[11px] font-bold text-primary">
+              Instant Sales Profit
+            </div>
+          </div>
 
-          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          <div className="rounded-md border border-secondary-dark/80 bg-white p-4 sm:p-5 shadow-xs flex flex-col justify-between">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-soft text-primary mb-3">
+                <Users className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-sm font-bold text-neutral-dark">
+                Direct Referral Bonuses
+              </h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-neutral-soft">
+                Earn immediate cash commissions each time a new distributor
+                enrolls with your sponsor username.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-secondary-dark/50 text-[11px] font-bold text-primary">
+              Sponsor Cash Commissions
+            </div>
+          </div>
+
+          <div className="rounded-md border border-secondary-dark/80 bg-white p-4 sm:p-5 shadow-xs flex flex-col justify-between">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-soft text-primary mb-3">
+                <TrendingUp className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-sm font-bold text-neutral-dark">
+                Indirect Leverage &amp; PV
+              </h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-neutral-soft">
+                Accumulate Point Value (PV) and earn passive overrides across
+                downline purchases and team activations.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-secondary-dark/50 text-[11px] font-bold text-primary">
+              Passive Team Overrides
+            </div>
+          </div>
+
+          <div className="rounded-md border border-secondary-dark/80 bg-white p-4 sm:p-5 shadow-xs flex flex-col justify-between">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent-soft text-accent mb-3">
+                <Award className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-sm font-bold text-neutral-dark">
+                Leadership Rank Awards
+              </h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-neutral-soft">
+                Unlock milestone executive awards including paid luxury travel
+                trips, cash allowances, and brand new cars.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-secondary-dark/50 text-[11px] font-bold text-accent">
+              Luxury Rank Incentives
+            </div>
+          </div>
+        </div>
+
+        {/* Action & PDF Download Strip */}
+        <div className="rounded-md border border-secondary-dark/80 bg-secondary/60 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h4 className="font-display text-sm font-bold text-neutral-dark">
+              Want the full compensation breakdown?
+            </h4>
+            <p className="text-xs text-neutral-soft mt-0.5">
+              Review full point values, payout stages, and rank qualifications
+              in the official guide.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <button
               type="button"
               onClick={() => navigate("/register")}
-              className="btn-primary bg-white text-primary hover:bg-secondary text-xs"
+              className="btn-primary text-xs min-h-9 px-4 py-2"
             >
-              <TiUserAdd className="h-4 w-4" />
+              <TiUserAdd className="h-3.5 w-3.5" />
               Register as Stockist
             </button>
             <a
               download={true}
               href="/complan.pdf"
-              className="btn-secondary border-white/20 bg-white/10 text-white hover:bg-white/15 text-xs"
+              className="btn-secondary text-xs min-h-9 px-4 py-2"
             >
-              <FaDownload className="h-3.5 w-3.5" />
-              Download Compensation Plan
+              <FaDownload className="h-3 w-3" />
+              Download Plan (PDF)
             </a>
-          </div>
-
-          <div className="mt-6 grid gap-2.5 sm:grid-cols-3 pt-6 border-t border-white/10">
-            {[
-              "Multiple Streams of Income",
-              "25% Retail Profit Margins",
-              "Direct Referral Bonuses",
-              "Indirect Referral Earnings",
-              "Flexible Startup Packages",
-              "Rank Awards and Incentives",
-            ].map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-2 rounded-md bg-white/5 px-3 py-2 text-xs font-medium text-white/90"
-              >
-                <Check className="h-3.5 w-3.5 text-primary-soft shrink-0" />
-                <span>{item}</span>
-              </div>
-            ))}
           </div>
         </div>
       </motion.section>
 
-      {/* ── 5. FAQ SECTION: Accordion Component ── */}
-      <motion.section {...fadeUp} className="flex flex-col gap-6">
+      {/* ── 5. FAQ SECTION (Accordion with #faqs anchor) ── */}
+      <motion.section
+        {...fadeUp}
+        id="faqs"
+        className="scroll-mt-24 flex flex-col gap-6"
+      >
         <div>
           <h2 className="font-display text-xl sm:text-2xl font-bold text-neutral-dark">
             Frequently Asked Questions
@@ -294,7 +375,7 @@ const Home: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between gap-4 p-4 text-left transition hover:bg-secondary/40 focus:outline-none"
+                  className="w-full flex items-center justify-between gap-4 p-4 text-left transition hover:bg-secondary/40 focus:outline-none cursor-pointer"
                   aria-expanded={isOpen}
                 >
                   <span className="font-bold text-neutral-dark text-sm">

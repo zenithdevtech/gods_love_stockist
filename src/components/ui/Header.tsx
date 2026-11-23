@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { HiOutlineMenuAlt3, HiX } from "react-icons/hi";
 import { AnimatePresence, motion } from "framer-motion";
-import { Phone } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import navitems from "../../lib/navitems";
 import assets from "../../assets/assets";
 import stockistConfig from "../../lib/stockistConfig";
@@ -13,16 +12,21 @@ const Header = () => {
 
   useEffect(() => {
     queueMicrotask(() => setOpen(false));
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
+
+  const handleNavClick = (path: string) => {
+    setOpen(false);
+    if (path === "/#faqs" && location.pathname === "/") {
+      const el = document.getElementById("faqs");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50">
-      <motion.div
-        className="relative border-b border-secondary-dark/60 bg-[#f6f9f6]/95 backdrop-blur-md"
-        initial={{ y: -12, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
-      >
+      <div className="relative border-b border-secondary-dark/60 bg-[#f6f9f6]/95 backdrop-blur-md">
         <nav className="app-container flex h-16 sm:h-20 items-center gap-4">
           <a href="/" className="flex min-w-0 items-center gap-2.5">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center">
@@ -49,11 +53,15 @@ const Header = () => {
 
           <div className="hidden flex-1 items-center justify-center gap-1 md:flex">
             {navitems.map((item) => {
-              const active = location.pathname === item.path;
+              const active =
+                item.path === "/#faqs"
+                  ? location.hash === "#faqs"
+                  : location.pathname === item.path && !location.hash;
               return (
                 <Link
                   key={item.name}
                   to={item.path}
+                  onClick={() => handleNavClick(item.path)}
                   className={[
                     "relative rounded-md px-3.5 py-2 text-sm font-semibold transition",
                     active
@@ -83,17 +91,14 @@ const Header = () => {
             </a>
           </div>
 
+          {/* New Clean Menu Icon Button */}
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-md border border-secondary-dark/80 bg-white text-primary shadow-xs transition hover:bg-secondary md:hidden"
+            className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-md border border-secondary-dark/80 bg-white text-neutral-dark shadow-xs transition hover:bg-secondary md:hidden cursor-pointer"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
-            {open ? (
-              <HiX className="text-xl text-neutral-dark" />
-            ) : (
-              <HiOutlineMenuAlt3 className="text-xl" />
-            )}
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </nav>
 
@@ -121,12 +126,15 @@ const Header = () => {
               >
                 <div className="app-container py-3.5 flex flex-col gap-1">
                   {navitems.map((item) => {
-                    const active = location.pathname === item.path;
+                    const active =
+                      item.path === "/#faqs"
+                        ? location.hash === "#faqs"
+                        : location.pathname === item.path && !location.hash;
                     return (
                       <Link
                         key={item.name}
                         to={item.path}
-                        onClick={() => setOpen(false)}
+                        onClick={() => handleNavClick(item.path)}
                         className={[
                           "rounded-md px-3.5 py-2.5 text-xs font-bold transition",
                           active
@@ -164,7 +172,7 @@ const Header = () => {
             </>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </header>
   );
 };

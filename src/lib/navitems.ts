@@ -6,6 +6,10 @@ const navitems: navitemsProps[] = [
     path: "/",
   },
   {
+    name: "FAQs",
+    path: "/#faqs",
+  },
+  {
     name: "Register",
     path: "/register",
   },
